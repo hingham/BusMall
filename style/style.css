@@ -1,0 +1,11 @@
+h1 {
+    text-align: left;
+    font-size: 36px;
+    margin: 50px 40px;
+}
+
+img {
+    display: inline-block;
+    float: left;
+    margin : 10px;
+}
