@@ -3,8 +3,9 @@ var productDisplay = document.getElementById('products');
 var firstProduct = document.getElementById('image-one');
 var secondProduct = document.getElementById('image-two');
 var thirdProduct = document.getElementById('image-three');
-var list = document.getElementsByTagName('list');
+var list = document.getElementById('results');
 
+var totalVotes = 0;
 var imgOne, imgTwo, imgThree, prevImgOne, prevImgTwo, prevImgThree;
 
 function ranNum(){
@@ -33,6 +34,7 @@ function getProducts(){
 
     thirdProduct.src =  Product.busProducts[imgThree].filepath;
     thirdProduct.alt = Product.busProducts[imgThree].productName;
+
 }
 
 Product.busProducts = [];
@@ -51,9 +53,13 @@ function Product (filepath, productName){
     //event handler needs to tally how many times the image was clicked
     //event handler needs to tally how many time the image was shonw
     //do not show image that is currently showing or was currently showing
+
 function clickHandler(event) {
     if (!event){
         getProducts();
+        Product.busProducts[imgOne].displayedTotal+=1;
+        Product.busProducts[imgTwo].displayedTotal+=1;
+        Product.busProducts[imgThree].displayedTotal+=1;
     }
   
     var target = event.target.alt;
@@ -90,6 +96,17 @@ function clickHandler(event) {
     Product.busProducts[imgOne].displayedTotal+=1;
     Product.busProducts[imgTwo].displayedTotal+=1;
     Product.busProducts[imgThree].displayedTotal+=1;
+    
+
+    totalVotes += 1;
+    console.log('total clicks' + totalVotes);
+    
+    
+    if (totalVotes === 25){
+        productDisplay.removeEventListener('click', clickHandler);
+        getResults();
+    }
+
 }
 
 //instantiate produts
@@ -99,24 +116,61 @@ new Product('assets/banana.jpg', 'banana');
 new Product('assets/boots.jpg', 'boots');
 new Product('assets/bubblegum.jpg', 'bubble');
 new Product('assets/breakfast.jpg', 'breakfast');
-// new Product('assets/chair.jpg', 'chair');
-// new Product('assets/cthulhu.jpg', 'cthulhu');
-// new Product('assets/dog-duck.jpg', 'dog-duck');
-// new Product('assets/dragon.jpg', 'dragon');
-// new Product('assets/pen.jpg', 'pen');
-// new Product('assets/pet-sweep.jpg', 'pet');
-// new Product('assets/scissors.jpg', 'scissors');
-// new Product('assets/shark.jpg', 'shark');
-// new Product('assets/sweep.png', 'sweep  ');
-// new Product('assets/tauntaun.jpg', 'tauntaum');
-// new Product('assets/unicorn.jpg', 'unicorn');
-// new Product('assets/usb.gif', 'usb');
-// new Product('assets/water-can.jpg', 'water-can');
-// new Product('assets/wine-glass.jpg', 'wine-glass');
+new Product('assets/chair.jpg', 'chair');
+new Product('assets/cthulhu.jpg', 'cthulhu');
+new Product('assets/dog-duck.jpg', 'dog-duck');
+new Product('assets/dragon.jpg', 'dragon');
+new Product('assets/pen.jpg', 'pen');
+new Product('assets/pet-sweep.jpg', 'pet');
+new Product('assets/scissors.jpg', 'scissors');
+new Product('assets/shark.jpg', 'shark');
+new Product('assets/sweep.png', 'sweep  ');
+new Product('assets/tauntaun.jpg', 'tauntaum');
+new Product('assets/unicorn.jpg', 'unicorn');
+new Product('assets/usb.gif', 'usb');
+new Product('assets/water-can.jpg', 'water-can');
+new Product('assets/wine-glass.jpg', 'wine-glass');
 
 
-productDisplay.addEventListener('click', clickHandler);
+function getVotes () {
+    productDisplay.addEventListener('click', clickHandler);
+}
+
+function getResults() {
+    productDisplay.setAttribute('class', 'hidden');
+
+    for(var i = 0; i < Product.busProducts.length; i++){
+        var percent = (Product.busProducts[i].clickTotal/Product.busProducts[i].displayedTotal) * 100;
+
+        var displayedSummary = 'You viewed ' + Product.busProducts[i].productName + ' ' +
+        Product.busProducts[i].displayedTotal + ' times.'
+        var voteSummary = ' You clicked on ' + Product.busProducts[i].productName + ' ' +
+        Product.busProducts[i].clickTotal + ' times.'  
+        var precentSummary = ' You clicked ' + Product.busProducts[i].productName + ' ' + 
+        percent + '% of the time when given the choice.';
+
+        var newLi = document.createElement('li');
+        var liText = document.createTextNode(displayedSummary + voteSummary + precentSummary);
+        newLi.appendChild(liText)
+        list.appendChild(newLi);
+    }
+}
 
 
+
+getVotes();
 clickHandler();
 
+
+//display three products side by side--should be the same size
+    //will need to edit photos
+    //allow users to select favorite product
+    //keep track of clicks
+        //allow 25 clicks--(test with 5)
+
+//track percentage of times an item was clicked when it was shown
+
+//display three images by calling event?
+
+
+//print the results for each image to the page. 

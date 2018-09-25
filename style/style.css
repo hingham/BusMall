@@ -1,11 +1,39 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 50px;
+    background-image: url('https://images.pexels.com/photos/1092364/pexels-photo-1092364.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+}
+
+section{
+    margin: auto;
+}
+
 h1 {
     text-align: left;
-    font-size: 36px;
-    margin: 50px 40px;
+    color: hsl(0, 2%, 30%);
+    font-size: 40px;
+    margin-bottom: 50px;
 }
 
 img {
-    display: inline-block;
     float: left;
-    margin : 10px;
+    margin: 15px;
+}
+
+
+ul{
+    display: block;
+    color: hsl(0, 2%, 30%);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    list-style-type: square;
+    list-style-position: outside;
+}
+
+li{
+    margin-top: 5px;
+}
+
+.hidden {
+    display: none;
 }
