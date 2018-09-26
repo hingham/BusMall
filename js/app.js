@@ -7,14 +7,12 @@ var list = document.getElementById('results');
 
 
 var totalVotes = 0;
-
+var colorArray = [];
 var imgNums = []
 var productArray = [firstProduct, secondProduct, thirdProduct];
 var label = [];
 var clickData = [];
 var clickPercents = [];
-var colorArray = [];
-
 Product.busProducts = [];
 
 function getImgNums(){
@@ -28,7 +26,7 @@ function shuffle(array){
     var j = 0;
     var holder = 0;
 
-    for (i=array.length -1; i>0; i-=1){
+    for (i=array.length -1; i>=0; i-=1){
         j = Math.floor(Math.random() * (i+1));
         holder = array[i];
         array[i] = array[j];
@@ -45,6 +43,23 @@ function Product (filepath, productName){
     Product.busProducts.push(this);
 }
 
+function getColors () {
+    var colorR=[];
+    var colorG=[];
+    var colorB = [];
+    for (var i = 0; i< Product.busProducts.length; i++){
+    colorR.push(Math.floor(i * Math.random() * Math.random()* 200))+10;
+    colorG.push(Math.ceil(Math.random()* 80)+50);
+    colorB.push(Math.floor(50 * Math.random() )+100);
+    }
+
+    for (var i = 0; i< Product.busProducts.length; i++){
+    colorArray.push('rgba('+colorR[i]+', '+colorG[i]+', '+colorB[i]+', 0.8)');
+    }
+    return colorArray;
+}
+
+
 function getProducts() {
     for (var i = 0; i< productArray.length; i++){
         productArray[i].src =  Product.busProducts[imgNums[i]].filepath;
@@ -59,7 +74,6 @@ function getResults(){
     document.getElementById("products").setAttribute("class", "hidden");
     getLabels();
     getClickData();
-    getColors();
     getClickPercents();
     getChart();
     listResults();
@@ -99,7 +113,9 @@ function clickHandler(event) {
     //actives function that creates chart once max number of clicks reached
     if (totalVotes === 10){
         productDisplay.removeEventListener('click', clickHandler);
-        getResults();
+        getResults();//chart
+
+        localStorage.setItem("productKey", JSON.stringify(Product.busProducts));
         }
     }
 }
@@ -124,21 +140,7 @@ function getClickPercents(){
     }
 }
 
-function getColors () {
-    var colorR=[];
-    var colorG=[];
-    var colorB = [];
-    for (var i = 0; i< Product.busProducts.length; i++){
-    colorR.push(Math.floor(Product.busProducts[i].clickTotal * Math.random() * 200))+10;
-    colorG.push(Math.ceil(Product.busProducts[i].clickTotal * Math.random()* 2)+50);
-    colorB.push(Math.floor(i + 150 * Math.random() )+10);
-    }
-    
 
-    for (var i = 0; i< Product.busProducts.length; i++){
-    colorArray.push('rgba('+colorR[i]+', '+colorG[i]+', '+colorB[i]+', 0.5)');
-    }
-}
 
 function getChart (){
     var ctx = document.getElementById("chart").getContext('2d');
@@ -156,9 +158,15 @@ function getChart (){
         },
         options: {
             scales: {
-                yAxes: [{
+                xAxes: [{
+                    gridLines: {
+                        display: false
+                    },
+                }],
+                yAxes:
+                 [{
                     ticks: {
-                        max: 5,
+                        max: 8,
                         min: 0,
                         stepSize: 1
                     }
@@ -182,17 +190,37 @@ function getChart (){
         },
         options: {
             scales: {
-                yAxes: [{
+                xAxes: [{
+                    gridLines: {
+                        display: false
+                    },
+                }],
+                yAxes: 
+                    [{
                     ticks: {
                         max: 100,
                         min: 0,
-                        stepSize: 10
+                        stepSize: 25
                     }
                 }]
             }
         }
     });
 }
+
+function checkLocalStorage(){
+    var mallProducts = localStorage.getItem("productKey");
+    if(!mallProducts) {
+        getProductIntances();
+        localStorage.setItem("productKey", JSON.stringify(Product.busProducts));
+    }
+    else{
+        Product.busProducts=JSON.parse(mallProducts);
+        console.log(mallProducts);
+    }
+}
+
+
 
 function getProductIntances () {
     new Product('assets/bag.jpg', 'bag');
@@ -233,8 +261,9 @@ function listResults() {
 }
 
 
-getProductIntances();
+checkLocalStorage();
 getImgNums();
+getColors();
 clickHandler();
 getVotes();
 

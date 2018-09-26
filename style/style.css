@@ -25,13 +25,17 @@ div{
 #products {
     border: 2px solid black;
     overflow: hidden;
+    margin: auto;
+    padding-left: 20px;
 }
 
+
 img {
-    border: 1px solid black;
-    float: right;
-    margin: 15px;
-    height: 300px;
+    border: 5px solid rgb(8, 5, 9, .7);
+    border-radius: 15px;
+    float: left;
+    margin: 10px;
+    width: 250px;
 }
 
 
@@ -47,8 +51,9 @@ img {
 }
 
 li{
+    margin-left: em;
     margin-bottom: .5em;
-    width: 350px;
+    width: 300px;
 }
 
 .hidden {
@@ -56,16 +61,19 @@ li{
 }
 
 #charts{
-    float: right;
-    height: 150px;
+    display: inline-block;
     margin-right: 50px;
-    width: 600px;
+    width: 800px;
 }
 
 #chart, #percent-chart {
     border: 1px solid black;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
 
+}
+
+#percent-chart-styling {
+    height: 100px;
 }
 
 
