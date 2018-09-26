@@ -1,7 +1,8 @@
 body{
     font-family: Arial, Helvetica, sans-serif;
     margin: 50px;
-    background-image: url('https://images.pexels.com/photos/1092364/pexels-photo-1092364.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+    background-color: rgb(235, 238, 240);
+    /* background-image: url('https://images.pexels.com/photos/1092364/pexels-photo-1092364.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'); */
 }
 
 section{
@@ -12,28 +13,60 @@ h1 {
     text-align: left;
     color: hsl(0, 2%, 30%);
     font-size: 40px;
-    margin-bottom: 50px;
+    margin: 50px;
+}
+
+div{
+    height: 10px;
+    background: linear-gradient(0.25turn, #3f87a6, #e66465, #9198e5);
+    margin-bottom: 30px;
+}
+
+#products {
+    border: 2px solid black;
+    overflow: hidden;
 }
 
 img {
-    float: left;
+    border: 1px solid black;
+    float: right;
     margin: 15px;
+    height: 300px;
 }
 
 
-ul{
-    display: block;
+ section ul{
     color: hsl(0, 2%, 30%);
+    display: block;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
+    float: left;
     list-style-type: square;
     list-style-position: outside;
+    margin-left: 50px;
 }
 
 li{
-    margin-top: 5px;
+    margin-bottom: .5em;
+    width: 350px;
 }
 
 .hidden {
     display: none;
 }
+
+#charts{
+    float: right;
+    height: 150px;
+    margin-right: 50px;
+    width: 600px;
+}
+
+#chart, #percent-chart {
+    border: 1px solid black;
+    margin-bottom: 50px;
+
+}
+
+
+
