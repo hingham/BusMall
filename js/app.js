@@ -21,6 +21,7 @@ function getImgNums(){
     }
 }
 
+
 function shuffle(array){
     var i = 0;
     var j = 0;
@@ -65,7 +66,6 @@ function getProducts() {
         productArray[i].src =  Product.busProducts[imgNums[i]].filepath;
         productArray[i].alt = Product.busProducts[imgNums[i]].productName;
         Product.busProducts[imgNums[i]].displayedTotal+=1;
-
     }
 }
 
@@ -90,8 +90,11 @@ function clickHandler(event) {
         getProducts();
     }
 
+    
+
     else{
     var imgName = event.target.alt;
+    console.log(imgName);
     for (var i = 0; i<Product.busProducts.length; i++){
         if(Product.busProducts[i].productName===imgName){
             Product.busProducts[i].clickTotal++;
@@ -107,7 +110,7 @@ function clickHandler(event) {
     imgNums.push(itemTwo);
     imgNums.push(itemThree);
 
-    getProducts();
+    getProducts();//sets the alt text
     totalVotes += 1;
 
     //actives function that creates chart once max number of clicks reached
@@ -236,7 +239,7 @@ function getProductIntances () {
     new Product('assets/pet-sweep.jpg', 'pet');
     new Product('assets/scissors.jpg', 'scissors');
     new Product('assets/shark.jpg', 'shark');
-    new Product('assets/sweep.png', 'sweep  ');
+    new Product('assets/sweep.png', 'sweep');
     new Product('assets/tauntaun.jpg', 'tauntaum');
     new Product('assets/unicorn.jpg', 'unicorn');
     new Product('assets/usb.gif', 'usb');
